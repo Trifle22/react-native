@@ -8,9 +8,10 @@ import { ITodo } from './types/todo';
 interface Props {
   data: ITodo[];
   changeTodoStatus: (id: string) => void;
+  deleteTodo: (id: string) => void;
 }
 
-export const TodosList = ({data, changeTodoStatus}: Props) => {
+export const TodosList = ({data, changeTodoStatus, deleteTodo}: Props) => {
 
   const [showCompletedTodos, setShowAllTodos] = useState<boolean>(false);
 
@@ -58,7 +59,7 @@ export const TodosList = ({data, changeTodoStatus}: Props) => {
       <VirtualizedList
         data={filteredTodos}
         initialNumToRender={4}
-        renderItem={({ item }) => <Todo todo={item} changeTodoStatus={changeTodoStatus}/>}
+        renderItem={({ item }) => <Todo todo={item} changeTodoStatus={changeTodoStatus} deleteTodo={deleteTodo} />}
         getItemCount={getItemCount}
         keyExtractor={item => item.id}
         getItem={getItem}

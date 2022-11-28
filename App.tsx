@@ -33,11 +33,17 @@ export default function App() {
 
     setTodos(changedTodos);
   };
+
+  const deleteTodo = (id: string) => {
+    const changedTodos = [...todos].filter(todo => todo.id !== id);
+
+    setTodos(changedTodos);
+  };
   return (
     <View style={styles.container}>
         <Navbar  title="TODO APP"/>
         <AddTodoForm addTodo={addTodo} />
-        <TodosList data={todos} changeTodoStatus={changeTodoStatus} />
+        <TodosList data={todos} changeTodoStatus={changeTodoStatus} deleteTodo={deleteTodo} />
     </View>
   );
 }
