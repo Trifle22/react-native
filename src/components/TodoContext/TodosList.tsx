@@ -3,15 +3,16 @@ import React, { useState, useMemo } from 'react';
 import { View, VirtualizedList, StyleSheet, Text, StatusBar, Switch } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Todo } from './Todo';
-import { ITodo } from './types/todo';
+import { ITodo } from '../types/todo';
 
 interface Props {
   data: ITodo[];
   changeTodoStatus: (id: string) => void;
   deleteTodo: (id: string) => void;
+  openTodo: (id: string) => void;
 }
 
-export const TodosList = ({data, changeTodoStatus, deleteTodo}: Props) => {
+export const TodosList = ({data, changeTodoStatus, deleteTodo, openTodo}: Props) => {
 
   const [showCompletedTodos, setShowAllTodos] = useState<boolean>(false);
 
@@ -59,7 +60,7 @@ export const TodosList = ({data, changeTodoStatus, deleteTodo}: Props) => {
       <VirtualizedList
         data={filteredTodos}
         initialNumToRender={4}
-        renderItem={({ item }) => <Todo todo={item} changeTodoStatus={changeTodoStatus} deleteTodo={deleteTodo} />}
+        renderItem={({ item }) => <Todo todo={item} changeTodoStatus={changeTodoStatus} deleteTodo={deleteTodo} openTodo={openTodo} />}
         getItemCount={getItemCount}
         keyExtractor={item => item.id}
         getItem={getItem}

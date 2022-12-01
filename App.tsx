@@ -1,25 +1,16 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { AddTodoForm } from './src/components/AddTodoForm';
-import { Navbar } from './src/components/NavBar';
-import { TodosList } from './src/components/TodosList';
 import { ITodo } from './src/components/types/todo';
+import { TodoScreen } from './src/components/screens/TodoScreen';
+import { MainScreen } from './src/components/screens/MainScreen';
 
 export default function App() {
 
   const [todos, setTodos] = useState<ITodo[]>([]);
 
-  const addTodo = (title: string) => {
-    const newTodo = {
-      id: Date.now().toString(),
-      title,
-      completed: false,
-    };
+  const [openedTodoId, setOpenedTodoId] = useState<string>('');
 
-    setTodos(prev => [...prev, newTodo]);
-  };
-
-  const changeTodoStatus = (id: string) => {
+  const changeTodoStatus = useCallback((id: string) => {
     const changedTodos = [...todos].map(todo => {
       if (todo.id === id) {
         return {
@@ -32,26 +23,39 @@ export default function App() {
     });
 
     setTodos(changedTodos);
-  };
+  }, [todos]);
 
-  const deleteTodo = (id: string) => {
+  const deleteTodo = useCallback((id: string) => {
     const changedTodos = [...todos].filter(todo => todo.id !== id);
 
     setTodos(changedTodos);
+  }, [todos]);
+
+  const addTodo = (title: string) => {
+    const newTodo = {
+      id: Date.now().toString(),
+      title,
+      completed: false,
+    };
+
+    setTodos(prev => [...prev, newTodo]);
   };
+
+  const content = useMemo(() => {
+    if (openedTodoId) {return <TodoScreen todo={todos.find((todo) => todo.id === openedTodoId)}/>;}
+
+    return <MainScreen addTodo={addTodo} todos={todos} changeTodoStatus={changeTodoStatus} deleteTodo={deleteTodo} openTodo={setOpenedTodoId} />;
+  }, [changeTodoStatus, deleteTodo, openedTodoId, todos]);
+
   return (
     <View style={styles.container}>
-        <Navbar  title="TODO APP"/>
-        <AddTodoForm addTodo={addTodo} />
-        <TodosList data={todos} changeTodoStatus={changeTodoStatus} deleteTodo={deleteTodo} />
+      {content}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-container: {
-  flex: 1,
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-},
+  container: {
+    flex: 1,
+  },
 });
