@@ -1,6 +1,7 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Button } from 'react-native';
 import { Wrap } from '../common/Wrap';
+import { Navbar } from '../NavBar';
 import { ITodo } from '../types/todo';
 
 interface Props {
@@ -8,11 +9,14 @@ interface Props {
 }
 
 export const TodoScreen = ({ todo }: Props) => {
-  return (
-    <Wrap>
-      <Text>
-      {todo?.title}
-      </Text>
-    </Wrap>
-  );
+  if (todo) {
+    return (
+      <Wrap>
+        <Navbar title={todo.title} actionButton={<Button title="lol"/>}/>
+      </Wrap>
+    );
+  }
+
+  return null;
+
 };

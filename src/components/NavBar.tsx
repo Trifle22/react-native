@@ -3,14 +3,18 @@ import { View, StyleSheet, Text } from 'react-native';
 
 interface NavbarProps {
   title: string;
+  actionButton?: React.ReactElement<any, any>;
 }
 
-export const Navbar = (props: NavbarProps) => {
+export const Navbar = ({title, actionButton}: NavbarProps) => {
   return (
     <View style={styles.navbar}>
-      <Text style={styles.text}>
-        {props.title}
-      </Text>
+      <>
+        {actionButton}
+        <Text style={styles.text}>
+          {title}
+        </Text>
+      </>
     </View>
   );
 };
