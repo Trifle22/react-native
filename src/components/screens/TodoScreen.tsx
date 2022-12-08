@@ -1,18 +1,18 @@
 import React from 'react';
-import { Button } from 'react-native';
 import { Wrap } from '../common/Wrap';
 import { Navbar } from '../NavBar';
 import { ITodo } from '../types/todo';
 
 interface Props {
-  todo: ITodo | undefined
+  todo: ITodo | undefined;
+  goToMainScreen: () => void;
 }
 
-export const TodoScreen = ({ todo }: Props) => {
+export const TodoScreen = ({ todo, goToMainScreen }: Props) => {
   if (todo) {
     return (
       <Wrap>
-        <Navbar title={todo.title} actionButton={<Button title="lol"/>}/>
+        <Navbar title={todo.title} goToMainScreen={goToMainScreen} showGoBackButton/>
       </Wrap>
     );
   }

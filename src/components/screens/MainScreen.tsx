@@ -11,6 +11,7 @@ interface Props {
   changeTodoStatus: (id: string) => void;
   deleteTodo: (id: string) => void;
   openTodo: (id: string) => void;
+  clearOpenedTodoId?: () => void;
 }
 
 export const MainScreen = ({ addTodo, todos, changeTodoStatus, deleteTodo, openTodo }: Props) => {

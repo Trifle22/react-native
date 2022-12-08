@@ -1,20 +1,20 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
+import { BackButton } from './common/BackButton';
 
 interface NavbarProps {
   title: string;
-  actionButton?: React.ReactElement<any, any>;
+  goToMainScreen?: () => void;
+  showGoBackButton?: boolean;
 }
 
-export const Navbar = ({title, actionButton}: NavbarProps) => {
+export const Navbar = ({title, goToMainScreen, showGoBackButton}: NavbarProps) => {
   return (
     <View style={styles.navbar}>
-      <>
-        {actionButton}
+          {showGoBackButton && <BackButton onPress={goToMainScreen}/>}
         <Text style={styles.text}>
-          {title}
-        </Text>
-      </>
+        {title}
+      </Text>
     </View>
   );
 };

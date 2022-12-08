@@ -41,8 +41,12 @@ export default function App() {
     setTodos(prev => [...prev, newTodo]);
   };
 
+  const clearOpenedTodoId = () => {
+    setOpenedTodoId('');
+  };
+
   const content = useMemo(() => {
-    if (openedTodoId) {return <TodoScreen todo={todos.find((todo) => todo.id === openedTodoId)}/>;}
+    if (openedTodoId) {return <TodoScreen todo={todos.find((todo) => todo.id === openedTodoId)} goToMainScreen={clearOpenedTodoId}/>;}
 
     return <MainScreen addTodo={addTodo} todos={todos} changeTodoStatus={changeTodoStatus} deleteTodo={deleteTodo} openTodo={setOpenedTodoId} />;
   }, [changeTodoStatus, deleteTodo, openedTodoId, todos]);
