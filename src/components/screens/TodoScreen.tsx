@@ -8,11 +8,11 @@ interface Props {
   goToMainScreen: () => void;
 }
 
-export const TodoScreen = ({ todo, goToMainScreen }: Props) => {
+export const TodoScreen = ({ todo }: Props) => {
   if (todo) {
     return (
       <Wrap>
-        <Navbar title={todo.title} goToMainScreen={goToMainScreen} showGoBackButton/>
+        <Navbar title={todo.title}/>
       </Wrap>
     );
   }
