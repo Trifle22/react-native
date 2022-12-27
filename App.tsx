@@ -1,8 +1,10 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useCallback, useState } from 'react';
 import { ITodo } from './src/components/types/todo';
-import { TodoScreen } from './src/components/screens/TodoScreen';
+import { TodoScreen  } from './src/components/screens/TodoScreen';
 import { MainScreen } from './src/components/screens/MainScreen';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { MainScreenNavigationProps, RootStackParamList } from './src/components/types/navigation';
 
 export default function App() {
 
@@ -41,25 +43,31 @@ export default function App() {
     setTodos(prev => [...prev, newTodo]);
   };
 
-  const clearOpenedTodoId = () => {
-    setOpenedTodoId('');
-  };
-
-  const content = useMemo(() => {
-    if (openedTodoId) {return <TodoScreen todo={todos.find((todo) => todo.id === openedTodoId)} goToMainScreen={clearOpenedTodoId}/>;}
-
-    return <MainScreen addTodo={addTodo} todos={todos} changeTodoStatus={changeTodoStatus} deleteTodo={deleteTodo} openTodo={setOpenedTodoId} />;
-  }, [changeTodoStatus, deleteTodo, openedTodoId, todos]);
+  const RootStack = createNativeStackNavigator<RootStackParamList>();
+  const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
-      {content}
-    </View>
-  );
-}
+    <NavigationContainer>
+      <RootStack.Navigator initialRouteName="Main">
+        <RootStack.Screen
+          name="Main"
+          children={() =>
+          <MainScreen
+            addTodo={addTodo}
+            todos={todos}
+            changeTodoStatus={changeTodoStatus}
+            deleteTodo={deleteTodo}
+            openTodo={setOpenedTodoId}
+            navigation={navigation}
+          />}
+          />
+        <RootStack.Screen
+          name="Todo"
+          children={() => <TodoScreen todo={todos.find(todo => todo.id === openedTodoId)} />}
+        />
+      </RootStack.Navigator>
+    </NavigationContainer>
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+  );
+
+  }

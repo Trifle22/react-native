@@ -1,20 +1,26 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { Wrap } from '../common/Wrap';
 import {Navbar} from '../NavBar';
 import { AddTodoForm } from '../TodoContext/AddTodoForm';
 import { TodosList } from '../TodoContext/TodosList';
-import { ITodo } from '../types/todo';
+import { RootStackParamList } from '../types/navigation';
 
-interface Props {
-  addTodo: (title: string) => void;
-  todos: ITodo[];
-  changeTodoStatus: (id: string) => void;
-  deleteTodo: (id: string) => void;
-  openTodo: (id: string) => void;
-  clearOpenedTodoId?: () => void;
-}
+type Props = RootStackParamList['Main'];
 
-export const MainScreen = ({ addTodo, todos, changeTodoStatus, deleteTodo, openTodo }: Props) => {
+export type MainScreenProps = NativeStackScreenProps<RootStackParamList, 'Main'> & Props;
+
+export const MainScreen = ({
+  route,
+  navigation,
+  addTodo,
+  todos,
+  changeTodoStatus,
+  deleteTodo,
+  openTodo,
+  }: MainScreenProps) => {
+    console.log(navigation, route);
+
   return (
     <Wrap>
       <Navbar title="TODO APP" />
