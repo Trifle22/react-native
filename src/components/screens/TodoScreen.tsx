@@ -1,14 +1,16 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { Wrap } from '../common/Wrap';
 import { Navbar } from '../NavBar';
-import { ITodo } from '../types/todo';
+import { RootStackParamList } from '../types/navigation';
 
-interface Props {
-  todo: ITodo | undefined;
-  goToMainScreen: () => void;
-}
+type Props = RootStackParamList['Todo'];
 
-export const TodoScreen = ({ todo }: Props) => {
+export type TodoScreenProps = NativeStackScreenProps<RootStackParamList, 'Todo'> & Props;
+
+export const TodoScreen = ({ todo, navigation }: TodoScreenProps) => {
+  console.log(navigation);
+
   if (todo) {
     return (
       <Wrap>
