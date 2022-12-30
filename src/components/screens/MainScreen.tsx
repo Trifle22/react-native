@@ -1,4 +1,3 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { Wrap } from '../common/Wrap';
 import {Navbar} from '../NavBar';
@@ -8,19 +7,13 @@ import { RootStackParamList } from '../types/navigation';
 
 type Props = RootStackParamList['Main'];
 
-export type MainScreenProps = NativeStackScreenProps<RootStackParamList, 'Main'> & Props;
-
 export const MainScreen = ({
-  route,
-  navigation,
   addTodo,
   todos,
   changeTodoStatus,
   deleteTodo,
   openTodo,
-  }: MainScreenProps) => {
-    console.log(navigation, route);
-
+  }: Props) => {
   return (
     <Wrap>
       <Navbar title="TODO APP" />

@@ -1,6 +1,3 @@
-import { CompositeScreenProps } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { MainScreenProps } from '../screens/MainScreen';
 import { ITodo } from './todo';
 
 export type RootStackParamList = {
@@ -14,5 +11,3 @@ export type RootStackParamList = {
   };
   Todo: { todo?: ITodo };
 };
-
-export type MainScreenNavigationProps = CompositeScreenProps<MainScreenProps, NativeStackScreenProps<RootStackParamList, 'Main'>>
