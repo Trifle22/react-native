@@ -4,26 +4,29 @@ import { ChangeStatusButton } from './ChangeStatusButton';
 import { DeleteTodoButton } from './DeleteTodoButton';
 
 import { ITodo } from '../types/todo';
-
+import { useNavigation } from '@react-navigation/native';
 interface Props {
   todo: ITodo;
   changeTodoStatus: (id: string) => void;
   deleteTodo: (id: string) => void;
-  openTodo: (id: string) => void;
 }
 
-export const Todo = ({ todo, changeTodoStatus, deleteTodo: deleteTodoProp, openTodo }: Props) => {
+export const Todo = ({ todo, changeTodoStatus, deleteTodo: deleteTodoProp }: Props) => {
 
   const deleteTodo = () => {
     deleteTodoProp(todo.id);
   };
 
+  const navigation = useNavigation();
+
+  const openTodo = () => {
+    navigation.navigate('Todo', { todo });
+  };
+
   return (
     <TouchableOpacity
       activeOpacity={0.5}
-      onLongPress={() => {
-        openTodo(todo.id);
-      }}
+      onLongPress={openTodo}
     >
         <View style={styles.container}>
           <Text style={styles.title}>

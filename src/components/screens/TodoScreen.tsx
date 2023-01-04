@@ -8,9 +8,11 @@ export const TodoScreen = ({ todo }: Props) => {
   if (todo) {
     return (
       <Wrap>
-        <Navbar title={todo.title}/>
+        <Navbar title={todo.title} />
       </Wrap>
     );
+  } else {
+    console.log(todo);
   }
 
   return null;

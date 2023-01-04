@@ -9,10 +9,9 @@ interface Props {
   data: ITodo[];
   changeTodoStatus: (id: string) => void;
   deleteTodo: (id: string) => void;
-  openTodo: (id: string) => void;
 }
 
-export const TodosList = ({data, changeTodoStatus, deleteTodo, openTodo}: Props) => {
+export const TodosList = ({data, changeTodoStatus, deleteTodo}: Props) => {
 
   const [showCompletedTodos, setShowAllTodos] = useState<boolean>(false);
 
@@ -60,7 +59,7 @@ export const TodosList = ({data, changeTodoStatus, deleteTodo, openTodo}: Props)
       <VirtualizedList
         data={filteredTodos}
         initialNumToRender={4}
-        renderItem={({ item }) => <Todo todo={item} changeTodoStatus={changeTodoStatus} deleteTodo={deleteTodo} openTodo={openTodo} />}
+        renderItem={({ item }) => <Todo todo={item} changeTodoStatus={changeTodoStatus} deleteTodo={deleteTodo} />}
         getItemCount={getItemCount}
         keyExtractor={item => item.id}
         getItem={getItem}

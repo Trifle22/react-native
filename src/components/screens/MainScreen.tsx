@@ -12,13 +12,12 @@ export const MainScreen = ({
   todos,
   changeTodoStatus,
   deleteTodo,
-  openTodo,
   }: Props) => {
   return (
     <Wrap>
       <Navbar title="TODO APP" />
       <AddTodoForm addTodo={addTodo} />
-      <TodosList data={todos} changeTodoStatus={changeTodoStatus} deleteTodo={deleteTodo} openTodo={openTodo} />
+      <TodosList data={todos} changeTodoStatus={changeTodoStatus} deleteTodo={deleteTodo} />
     </Wrap>
     );
 };
